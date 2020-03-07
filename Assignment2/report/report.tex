@@ -1,0 +1,198 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts}%For Maths fonts.
+\usepackage{amssymb}%For math symbols.
+\usepackage{amsmath}%For the math.
+\usepackage{graphicx}%For the image.
+\graphicspath{ ./} 
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref} 
+\usepackage{listings}
+\usepackage{color}
+\usepackage{csvsimple}
+\usepackage{dirtree}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+\usetikzlibrary{shapes.geometric, arrows}%For the borders and shapes.
+\begin{document}
+	\begin{titlepage}
+		\begin{flushleft}
+			
+			\bf CS7.301
+			\hfill
+			\bfseries 7$^{th}$ March, 2020
+		\end{flushleft}
+		\begin{center}
+			\line(1,0){300}\\
+			[5mm]
+			\huge{\bfseries MDL Assignment-2}\\
+			\line(1,0){300}\\
+			[12cm]
+		\end{center}
+		\begin{flushright}
+			{
+				\line(1,0){270}\\
+				\large  Vikrant Dewangan, Roll No.- 2018111024\\  Mohammad Nomaan Qureshi,
+				Roll No.- 2018111027
+				\line(1,0){270}\\	
+			}
+		\end{flushright}
+	\end{titlepage}
+	\newpage
+	\tableofcontents
+	\newpage
+	\section{File Structure}
+	\dirtree{%
+		.1 team\_29.
+		.2 outputs.
+		.3 task\_1\_trace.txt.
+		.3 task\_2\_part\_1\_trace.txt.
+		.3 task\_2\_part\_2\_trace.txt.
+		.3 task\_2\_part\_3\_trace.txt.
+		.2 task\_1.py.
+		.2 team\_29.pdf.
+	}
+	\section{Task 1}
+	\subsection{Problem Statement}
+	To finish Lero's quest, we have to implement a value iteration algorithm which maximizes the probability of Lero getting the final reward at the end to kill the Mighty Dragon(MD). Lero can perform 3 actions - 
+	\begin{enumerate}
+		\item \textbf{Shoot}
+		
+		Under this action, Lero reduces his stamina by 50 points and loses the arrow. He has 0.5 chance of hitting the MD(Mighty Dragon), upon hitting the dragon, it's health reduces by 25 points. If Lero's stamina is 0 or has 0 arrows, he can't shoot.
+		\item \textbf{Dodge}
+		
+		If he dodges with stamina 100 points, his stamina reduces to 50 with probablity 0.8 and to 0 with probability 0.2. If his stamina equals 50 points, this his stamina drops down to 0 always. Lero is smart and picks up the dodged arrow with probability 0.8. Else, if Lero's stamina is below 50 points, he won't be able to dodge.
+		\item \textbf{Recharge}
+		
+		Lero can recharge and increase his stamina by 50 points. This only happens although 80\% of the time. Else, it stays the same.
+	\end{enumerate}
+	Each action taken by Lero has penalty of (-5) points.
+	\subsection{Implementation}
+	The following was considered as a state - 
+	\begin{center}
+		S = (enemy\_health, number\_of\_arrows, stamina)
+	\end{center}
+	where 	
+	\begin{align*}
+		enemy\_health &\in \big[0,4\big] &  &   \\
+		number\_of\_arrows & \in \big[0,3\big] & &  \\
+		stamina &\in \big[0,2\big] &   &  
+	\end{align*}
+	The following formulae has been used - 
+	\begin{align*}
+	V_{i+1}(s) &= max \bigg[\sum_{s'}^{}P(s,s')\big[R(s,a,s') + \gamma V_{i}(s')\big]\bigg]
+	\end{align*}
+		Note that the reward function $R(s,a,s')$ is the following - 
+	\begin{equation*}
+	R(s,a,s') = \begin{cases}
+	-5 & s' \notin T \\
+	0 & s' \in T
+	\end{cases}
+	\end{equation*}
+	where T is the set of terminal states.\\
+	The \emph{stam}, \emph{enemy}, \emph{anna} keep track of the number of the state. The \emph{final} stores the utilities upon reaching taking the corresponding action
+	\begin{lstlisting}
+	for i in range(60):
+		stam = i%3
+		enemy = i//12
+		anna = (i % 12)//3
+		arrows = (i%12)//3
+		
+		if enemy is not 0:    
+			final = [-1e11 for i in range(3)]
+	
+		if stam > 0 and anna > 0: 
+		# SHOOT
+			final[0] = 0.5*(util[enemy-1][anna-1][stam-1]) + 0.5*(util[enemy][anna-1][stam-1])
+			final[0] = final[0]*gamma + 0.5*(reward + penalty) + 0.5*(penalty)
+		if stam > 0:
+		# DODGE
+			if stam is 2:
+			# 100 points
+				final[1] = 0.8*(0.8*util[enemy][(anna+1)%4][stam-1] + 0.2*util[enemy][anna][stam-1]) + 0.2*(0.8*util[enemy][(anna+1)%4][stam-2] + 0.2*util[enemy][anna][stam-2])
+				final[1] = final[1]*gamma + penalty
+			else:
+				final[1] = 0.8*util[enemy][(anna+1)%4][stam-1] + 0.2*util[enemy][anna][stam-1]
+				final[1] = final[1]*gamma + penalty
+	
+		# RECHARGE
+		final[2] = 0.8*util[enemy][anna][(stam+1)%3] + 0.2*util[enemy][anna][stam]
+		final[2] = final[2]*gamma + penalty
+		
+	\end{lstlisting}
+	The {SHOOT}, {DODGE} and {RECHARGE} calculate the value for the respective actions and finally the max value is taken to be the next utility.
+	\begin{lstlisting}
+		#CALCULATE MAX UTILITY 
+		policy = max(final[0],final[1],final[2])
+		ind = 0
+		if policy is final[1]:
+			ind = 1
+		elif policy is final[2]:
+			ind = 2
+	
+		line += actions[ind]
+		line += "\n"
+	
+		# UPDATE EQUATION
+		if abs(policy - old_util[enemy][anna][stam]) >= delta:
+			key = True
+		old_util[enemy][anna][stam] = policy
+	\end{lstlisting}
+	Note that the \emph{util} array saves the utilites.
+	\subsection{Inferences}
+	We output some sections of the trace - \begin{lstlisting}
+iteration=111
+(0,0,0):-1
+(0,0,1):-1
+(0,0,2):-1
+.........
+(0,3,0):-1
+(0,3,1):-1
+(0,3,2):-1
+.........	
+(4,1,1):SHOOT=[-116.566]
+(4,1,2):SHOOT=[-111.788]
+(4,2,0):RECHARGE=[-110.671]
+(4,2,1):SHOOT=[-105.756]
+(4,2,2):SHOOT=[-100.842]
+(4,3,0):RECHARGE=[-99.829]
+(4,3,1):SHOOT=[-94.777]
+(4,3,2):SHOOT=[-89.724]
+\end{lstlisting}
+Here is the last piece of the file, suggesting that the algorithm has run for \textbf{111} iterations. 
+
+
+Also, doing a word count on the actions - 
+\begin{align*}
+	\textrm{SHOOT} &->2688  & & \\
+	\textrm{DODGE} &->896  & &\\
+	\textrm{RECHARGE} &->1792 & & 
+\end{align*} 
+suggests that the action SHOOT is taken more commonly followed by RECHARGE and then DODGE. 
+
+\section{Task 2}
+\subsection{Part-1}
+\subsection{Part-2}
+\subsection{Part-3}
+\end{document}
+
