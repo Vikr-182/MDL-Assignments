@@ -105,7 +105,7 @@ while key:
             old_util[enemy][anna][stam] = policy
 
         else:
-            line += "-1\n"
+            line += "-1=[0.000]\n"
 
     num = num + 1
     util = old_util
@@ -229,7 +229,7 @@ while key:
             # print("_________________")
             # print(util)
         else:
-            line += "-1\n"
+            line += "-1=[0.000]\n"
 
     num = num + 1
     util = old_util
@@ -350,7 +350,7 @@ while key:
             # print("_________________")
             # print(util)
         else:
-            line += "-1\n"
+            line += "-1=[0.000]\n"
 
     num = num + 1
     util = old_util
@@ -430,7 +430,7 @@ while key:
             if stam > 0 and anna > 0: 
                 # SHOOT
                 final[0] = 0.5*(util[enemy-1][anna-1][stam-1]) + 0.5*(util[enemy][anna-1][stam-1])
-                final[0] = final[0]*gamma + 0.5*(reward + (-0.25)) + 0.5*(-0.25)
+                final[0] = final[0]*gamma + 0.5*(reward + (penalty)) + 0.5*(penalty)
             if stam > 0:
                 # DODGE
                 if stam is 2:
@@ -441,7 +441,7 @@ while key:
                     final[1] = 0.8*util[enemy][(anna+1)%4][stam-1] + 0.2*util[enemy][anna][stam-1]
                     final[1] = final[1]*gamma + penalty
 
-                # RECHARGE
+            # RECHARGE
             final[2] = 0.8*util[enemy][anna][(stam+1)%3] + 0.2*util[enemy][anna][stam]
             final[2] = final[2]*gamma + penalty
 
@@ -471,7 +471,7 @@ while key:
             # print("_________________")
             # print(util)
         else:
-            line += "-1\n"
+            line += "-1=[0.000]\n"
 
     num = num + 1
     util = old_util
