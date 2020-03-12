@@ -10,7 +10,7 @@ MAX_DEG = 11
 #### functions that you can call
 def get_errors(id, vector):
     """
-    returns python array of length 2 
+    returns python array of length 2
     (train error and validation error)
     """
     for i in vector: assert -1<=abs(i)<=1
@@ -44,14 +44,14 @@ def send_request(id, vector, path):
     return response
 
 
-if __name__ == "__main__":
-    """
-    Replace "test" with your secret ID and just run this file 
-    to verify that the server is working for your ID.
-    """
-    err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol', list(-np.arange(0,1.1,0.1)))
-    print(err)
-    assert len(err) == 2
-    submit_status = submit('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol', list(-np.arange(0,1.1,0.1)))
-    assert "submitted" in submit_status
-    print(submit_status)
+# if __name__ == "__main__":
+#     """
+#     Replace "test" with your secret ID and just run this file
+#     to verify that the server is working for your ID.
+#     """
+#     err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol', list(-np.arange(0,1.1,0.1)))
+#     print(err)
+#     assert len(err) == 2
+#     submit_status = submit('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol', list(-np.arange(0,1.1,0.1)))
+#     assert "submitted" in submit_status
+#     print(submit_status)
