@@ -9,7 +9,7 @@ weights = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
 errors = [4297934.878906351, 11920515.787599135]
 
 
-def store_weight(weights, errors):
+def store_weights(weights, errors):
     AppendList = []
     AppendList.append(weights)
     AppendList.append(errors)
