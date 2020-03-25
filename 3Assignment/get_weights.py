@@ -6,7 +6,8 @@ import pickle
 def get_weights():
     pickle_in = open("weights_errors.pkl","rb")
     array = pickle.load(pickle_in)
-    print(array)
+    # print(array)
     return array
-    
+# array = get_weights()[0][0]
+# print(array)
 #======================================================================================#

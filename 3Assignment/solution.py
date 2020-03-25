@@ -9,8 +9,9 @@ overfit_state = [-0.00016927573251173823, 0.0010953590656607808, 0.0037318695245
 
 
 
-iter = 70
+iter = 40
 mut_state = [[0 for x in range(11)] for y in range(5)]
+temp = None
 for i in range(iter) :
     cur_state = get_current_state()
     # print("Old State ", cur_state)
@@ -32,16 +33,21 @@ for i in range(iter) :
     num_state = 0
     for j in range(2) :
         for k in range(j+1, 4):
-            cross_keep_prob = 0.6
-            mutation_keep_prob = 0.4
+            if j == 0:
+                cross_keep_prob = 0.65
+                mutation_keep_prob = 0.2
+            else :
+                cross_keep_prob = 0.5
+                mutation_keep_prob = 0.2
             for x in range(11) :
                 cross_prob = random.uniform(0, 1)
                 mutation_prob = random.uniform(0, 1)
                 current = cur_state[errs[0][1]][x]
                 
-                mutated = random.uniform(max(-1, current*0.5), min(1, current*1.5))
-                if mutated >= 1 or mutated <= -1 :
-                    mutated = random.uniform(-10**-state_range[x], 10**-state_range[x])
+                if current > 0 :
+                    mutated = random.uniform(max(-1, current*-0.1), min(1, current*1.25))
+                else :
+                    mutated = random.uniform(max(-1, current*1.25), min(1, current*-0.1))
                     
                 if cross_prob < cross_keep_prob :
                     new_state[num_state][x] = cur_state[errs[j][1]][x]
@@ -55,9 +61,12 @@ for i in range(iter) :
     for x in range(11):
         new_state[2][x] = cur_state[errs[0][1]][x]
     for x in range(11) :
-        mutated_keep_prob = 0.6
+        mutated_keep_prob = 0.3
         current = cur_state[errs[0][1]][x]
-        mutated = random.uniform(max(-1, current*0.5), min(1, current*1.5))
+        if current > 0 :
+            mutated = random.uniform(max(-1, current*-0.1), min(1, current*1.25))
+        else :
+            mutated = random.uniform(max(-1, current*1.25), min(1, current*-0.1))
         if mutated <= -1 or mutated >= 1 :
             mutated = random.uniform(-10**-state_range[x], 10**-state_range[x])
             
@@ -70,8 +79,10 @@ for i in range(iter) :
     # print("Old State ", cur_state)
     # print("New state : ", new_state)
     set_current_state(new_state)
+    temp = new_state
     time.sleep(0.1)
     # x = input()
 
+print(temp[2])
 
 # print(err)

@@ -7,6 +7,7 @@ import random
 state = [list(np.zeros(11)) for x in range(5)]
 dim_state = 5
 state_range = [0, 0, 1, 1, 3, 5, 7, 8, 11, 11, 14]
+mutation_range = [0.5, 0.5, 1, 2, 2, 2, 2, 2, 2, 2, 2 ]
 def set_current_state(state):
     if len(state) != dim_state :
         print("Dimensions of state not right")
@@ -32,8 +33,8 @@ def set_initial_state() :
             initial_state[y][x] = random.uniform(-10**-state_range[x], 10**-state_range[x])
     set_current_state(initial_state)
     return
-array = get_current_state()
-for x in array :
-    print(x)
-# set_initial_state()
+# array = get_current_state()
+# for x in array :
+#     print(x)
+set_initial_state()
 #======================================================================================#
