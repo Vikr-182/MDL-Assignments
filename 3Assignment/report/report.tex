@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts}%For Maths fonts.
+\usepackage{amssymb}%For math symbols.
+\usepackage{amsmath}%For the math.
+\usepackage{graphicx}%For the image.
+\graphicspath{ ./} 
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref} 
+\usepackage{listings}
+\usepackage{color}
+\usepackage{csvsimple}
+\usepackage{dirtree}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+\usetikzlibrary{shapes.geometric, arrows}%For the borders and shapes.
+\begin{document}
+	\begin{titlepage}
+		\begin{flushleft}
+			
+			\bf CS7.301
+			\hfill
+			\bfseries 2$^{nd}$ April, 2020
+		\end{flushleft}
+		\begin{center}
+			\line(1,0){300}\\
+			[5mm]
+			\huge{\bfseries MDL Assignment-3}\\
+			\line(1,0){300}\\
+			[12cm]
+		\end{center}
+		\begin{flushright}
+			{
+				\line(1,0){270}\\
+				\large  Vikrant Dewangan, Roll No.- 2018111024\\  Mohammad Nomaan Qureshi,
+				Roll No.- 2018111027
+				\line(1,0){270}\\	
+			}
+		\end{flushright}
+	\end{titlepage}
+	\newpage
+	\tableofcontents
+	\newpage
+	\section{File Structure}
+	\dirtree{%
+		.1 team\.71.
+		.2 report.
+		.3 task\_1\_trace.txt.
+		.3 task\_2\_part\_1\_trace.txt.
+		.3 task\_2\_part\_2\_trace.txt.
+		.3 task\_2\_part\_3\_trace.txt.
+		.2 task\_1.py.
+		.2 team\_29.pdf.
+	}
+\end{document}
+
