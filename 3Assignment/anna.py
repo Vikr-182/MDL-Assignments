@@ -9,27 +9,30 @@ overfit_state = [-0.00016927573251173823, 0.0010953590656607808, 0.0037318695245
 
 
 
-iter = 40
+iter = 2
 mut_state = [[0 for x in range(11)] for y in range(5)]
 temp = None
 for i in range(iter) :
     cur_state = get_current_state()
     # print("Old State ", cur_state)
-    # print(cur_state)
+    print()
+    print()
+    print(cur_state)
+    print()
+    print()
     new_state = [[0 for x in range(11)] for y in range(5)]
     count = 0
     errs = []
+    print("Iter:" + str(i))
     for state in cur_state :
-        err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol',
-                            list(state))
+        # err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol',list(state))
+        err = 0
+        print(state,end="?")
+        print()
         errs.append([err, count])
         count += 1
-    errs.sort()
-    # print(errs)
-    # Crossover 0-1, 0-2, 0-3, 1-2, 1-3
     print()
-    print("Iter : ", i)
-    print(errs)
+    errs.sort()
     num_state = 0
     for j in range(2) :
         for k in range(j+1, 4):
@@ -83,6 +86,6 @@ for i in range(iter) :
     time.sleep(0.1)
     # x = input()
 
-print(temp[2])
+# print(temp[2])
 
 # print(err)
