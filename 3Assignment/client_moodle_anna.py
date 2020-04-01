@@ -6,6 +6,7 @@ import numpy as np
 API_ENDPOINT = 'http://10.4.21.147'
 PORT = 3000
 MAX_DEG = 11
+sk = "4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol"
 
 #### functions that you can call
 def get_errors(id, vector):

@@ -1,5 +1,5 @@
 import numpy as np
-from client import get_errors, submit
+from client_moodle_anna import get_errors, submit
 from set_cur_state import set_current_state, get_current_state, state_range
 import random
 import time
