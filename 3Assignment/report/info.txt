@@ -1,0 +1,22 @@
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    Summary of your Genetic Algorithm with all the steps, also mention if you have made any major changes to the base genetic algorithm.
+    Three diagrams that showcase your first three iterations as shown in the attached image.
+    Explain your fitness function.
+    Explain your crossover function.
+    How exactly did you apply the mutations(if any).
+    What were your hyperparameters like pool size, splitting point for creating new genes, etc and why did you choose those parameters?
+    Statistical information like Number of iterations to converge, etc.
+    What heuristics did you apply, mention the ones that didn't work too.
+     Trace of output for the first 10 steps as shown:
+
+    Initial population
+    Vectors selected for crossover
+    Vectors after applying the crossover
+    Vectors before and after mutation
+
+    Anything else that you used, tricks, brute force, etc. that we should be aware of.
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Note: This report is a very important part of this assignment as we will also use this as a reference to evaluate your code. If the vectors submitted by you are not coherent with your report, your team will be heavily penalized. The report should indicate how different sections of your modular code implement the corresponding part, we should be able to map the steps of your algorithm with your sequence of functions and function calls. Try to incorporate actual outputs of your code, which we can also run and match. Don't forget to write your team number on the report.
+
+In the report, also mention the train error and validation error which you were able to achieve and which according to you should perform the best on an unseen dataset and explain why do you think so. Try to avoid arguments like 'This vector lead our team to rank 1 in the leaderboard and hence will perform best' and give more theoretically sound points. The exact value of error is not important and something approximate will also do.
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________
