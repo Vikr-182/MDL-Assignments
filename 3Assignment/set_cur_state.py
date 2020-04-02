@@ -6,7 +6,7 @@ import numpy as np
 import random
 state = [list(np.zeros(11)) for x in range(5)]
 dim_state = 5
-state_range = [0, 0, 1, 1, 3, 5, 7, 8, 11, 11, 14]
+state_range = [-1, -1, 1, 2, 4, 5, 6, 8, 10, 11, 13]
 mutation_range = [0.5, 0.5, 1, 2, 2, 2, 2, 2, 2, 2, 2 ]
 def set_current_state(state):
     if len(state) != dim_state :
@@ -25,16 +25,23 @@ def get_current_state() :
     return array
     
 def set_initial_state() :
-    overfit_state = [-0.00016927573251173823, 0.0010953590656607808, 0.003731869524518327, 0.08922889556431182, 0.03587507175384199, -0.0015634754169704097,
-                        -7.439827367266828e-05, 3.7168210026033343e-06, 1.555252501348866e-08, -2.2215895929103804e-09, 2.306783174308054e-11]
+    overfit_state = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12]
     initial_state = np.random.uniform(low = -1, high = 1, size =(5, 11))
     for y in range(5):
-        for x in range(11) :
+        # initial_state[y][0] = random.uniform(-1, 1)
+        for x in range(1,11) :
             initial_state[y][x] = random.uniform(-10**-state_range[x], 10**-state_range[x])
+            # current = overfit_state[x]
+            # if current > 0 :
+            #     mutated = random.uniform(max(-1, current*0.01), min(1, current*1.2))
+            # else :
+            #     mutated = random.uniform(max(-1, current*1.2), min(1, current*0.01))
+            # initial_state[y][x] = mutated
+    # initial_state[4] = overfit_state
     set_current_state(initial_state)
     return
-# array = get_current_state()
+array = get_current_state()
 # for x in array :
 #     print(x)
-set_initial_state()
+# set_initial_state()
 #======================================================================================#

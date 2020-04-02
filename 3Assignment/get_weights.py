@@ -8,16 +8,6 @@ def get_weights():
     array = pickle.load(pickle_in)
     # print(array)
     return array
-array = get_weights()
+# array = get_weights()[0][0]
 # print(array)
-for i in array:
-    for j in i:
-        for k in j:
-            print(k,end="|")
-            print()
-        print()
-        print()
-    print()
-    print()
-    print()
 #======================================================================================#

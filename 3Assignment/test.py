@@ -4,11 +4,20 @@
 import numpy as np
 from client import get_errors
 
-state = np.zeros(11)
-state[10] = 10**-14
-err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol',
-                    list(state))
+
+for x in range(11):
+    state = np.zeros(11)
+    state[x] = 1
+    err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol',
+                            list(state))
+    print(state)
+    print(err)
 print()
-print("State : ", state)
-print("Error : ", err)
+# overfit_state = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12]
+# state = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12]
+#
+# err = get_errors('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol',
+#                         list(state))
+# print("State : ", state)
+# print("Error : ", err)
 #======================================================================================#
