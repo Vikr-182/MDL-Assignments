@@ -64,15 +64,48 @@
 	\section{File Structure}
 	\dirtree{%
 		.1 team\.71.
-		.2 report.
+		.2 report.pdf.
 		.3 task\_1\_trace.txt.
 		.3 task\_2\_part\_1\_trace.txt.
 		.3 task\_2\_part\_2\_trace.txt.
 		.3 task\_2\_part\_3\_trace.txt.
-		.2 task\_1.py.
-		.2 team\_29.pdf.
+		.2 solution.py.
 	}
 	\section{Problem Statement}
-	
+	Given coefficients of vectors corresponding to over-fit model, apply Genetic Algorithm (G.A) to reduce over-fitting. 
+	\\
+	\textbf{\emph{Input}}:
+	\begin{align*}
+		\bar{v}_{overfit}&= [-0.00016927573251173823, 0.0010953590656607808,
+		\\ & \hspace{0.5cm} 0.003731869524518327, 0.08922889556431182,
+		\\ & \hspace{0.5cm} 0.03587507175384199, -0.0015634754169704097,
+		\\ & \hspace{0.5cm} -7.439827367266828e-05, 3.7168210026033343e-06, 
+		\\ & \hspace{0.5cm} 1.555252501348866e-08, -2.2215895929103804e-09, 
+		\\  & \hspace{0.5cm}2.306783174308054e-11]
+	\end{align*}
+	Given a query server to allow for submission of weights ($w_i$), the following is returned for each query - 
+	\begin{align*}
+		M.S.E &= \frac{\sum_{x\in data} \big(y - f\big(x\big)\big)^{2}}{N}
+	\end{align*}
+	where $f\big(x\big)$ is calculated using the weights submitted $[w_1,w_2 \ldots w_{10}]$ - 
+	\begin{align*}
+		f\big(x\big) &= \sum_{i=1}^{10} w_i\cdot x_i
+	\end{align*}
+	\\	
+	\textbf{\emph{Output}}:	
+	A set of weights $[w_1,w_2 \ldots w_{10}]$ corresponding to best-fit under the conditions- 
+	\begin{align*}
+		|w_i| &\leq 10
+	\end{align*}
+	\section{Algorithm Definition}
+	Genetic Algorithm consists of 4 steps - 
+	\begin{enumerate}
+		\item \textbf{Initialisation of Population}:
+		Each generation contains 5 vectors.
+		\item \textbf{Fitness Function}
+		\item \textbf{Selection}
+		\item \textbf{Reproduction}
+		\item \textbf{Convergence}
+	\end{enumerate}
 \end{document}
 
