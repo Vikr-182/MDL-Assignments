@@ -8,7 +8,7 @@ overfit_state = [-0.00016927573251173823, 0.0010953590656607808, 0.0037318695245
                     -7.439827367266828e-05, 3.7168210026033343e-06, 1.555252501348866e-08, -2.2215895929103804e-09, 2.306783174308054e-11]
 
 
-
+RARA = ""
 iter = 40
 mut_state = [[0 for x in range(11)] for y in range(5)]
 temp_err = [[[1000000000000000000, 1000000000000000000], 0] for x in range(5)]
@@ -17,8 +17,13 @@ for i in range(iter) :
     cur_state = get_current_state()
     # print("Old State ", cur_state)
     print("Generation : ", i+1)
+    RARA += "Generation : "
+    RARA += str(i+1)
     print("\nCurrent Vectors : ")
+    RARA += "\nCurrent Vectors : "
     for x in cur_state :
+        RARA += "Vector  :"
+        RARA += str(x)
         print("Vector  :", x)
     
     new_state = [[0 for x in range(11)] for y in range(5)]
@@ -67,7 +72,10 @@ for i in range(iter) :
     # print("Iter : ", i)
     # print(train_err)
     print("\n\nErrors : \n", errs)
+    RARA += "\n\nErrors : \n"
+    RARA += str(errs) 
     print()
+    RARA += "\n"
     num_state = 0
     for j in range(2) :
         for k in range(j+1, 4):
@@ -143,5 +151,8 @@ for x in range(4) :
         min_err = errs[x][0][1]
         pos = x
 print(new_state[errs[pos][1]])
+RARA += new_state[errs[pos][1]] + "\n"
 submit('4wbRlSOEbHj0HmuzgNcnNc6KeW9ERzSsccXuswFyGlkn7bUMol', new_state[2])
+file = open("output.txt","w")
+file.write(RARA)
 # print(err)
