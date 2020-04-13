@@ -164,6 +164,33 @@ r_{[i,j,k]} =
 	\end{pmatrix}		
 		$
 	\end{center}
-		
+		Thus the A matrix is obtained.
+		\subsection{Rendering the policy}
+		Following procedure is followed - 
+		\begin{itemize}
+	\item 		Upon solving the linear programming and obtaining \textbf{x} , we get a linear array of values each being \textbf{deterministic} uniformly
+	optimal policy. We get it as follows - 
+	\begin{align*}
+		\textbf{x} &= [x_{1a1},x_{1a2},x_{2a1},x_{3a1},x_{3a2} \ldots ]
+	\end{align*}
+	Either of $x_{nai}$ is non zero and all being non zeroes confirming to a deterministic policy.
+\item 			For example, we get for the stage [1,1,2], SHOOT is the best option. We iterate over the \textbf{x} array and check for all actions from a particular 
+state and choose the one with the highest probability.
+
+		\end{itemize}
+		\subsection{Changing the policies}
+		The final policy is dependent on a number of factors, including especially the \textbf{order} of policies taken.
+		For example, if we have SHOOT before RECHARGE, then in case of a tie, SHOOT would be given priority before RECHARGE.
+		The way it affects is as follows - 
+		\begin{itemize}
+			\item Changing the order of actions changes the way A matrix is written. Say, if earlier order was NOOP,SHOOT, RECHARGE and then DODGE, if the order 
+			is changed, it would lead to different actions within a state reaching to different states. 
+			\item If a particular action changes, so does it's reward. In this case the \textbf{r} matrx will have it's columns juggled. This will lead to a change 
+			in the solution of linear programming to appropriately max out the variables and the results coefficients \textbf{x} we get would not be the same.
+			Thus, what we would see is a newer policy implemented.
+			\item Changing the $\boldsymbol{\alpha}$ vector also changes the way we approach the problem. In this problem, we are assuming that $\boldsymbol{\alpha}$ is given to us.
+			However, a different value of $\boldsymbol{\alpha}$ may lead to a completely different policy. Say if I am in a terminal state at the start, then I know I will only perform
+			NOOP action and that will be my optimal policy. 
+		\end{itemize}
 \end{document}
 
