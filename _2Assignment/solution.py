@@ -208,6 +208,15 @@ if not os.path.exists(os.path.dirname(filename)):
         if exc.errno != errno.EEXIST:
             raise
 
+dic["policy"] = policy
+## Changing to float
+### A  first ####### 
+for i in range(60):
+    for j in range(100):
+        dic["a"][i][j] = float("{:.4f}".format(dic["a"][i][j]))
+### r next ########
+for i in range(len(dic["r"])):
+    dic["r"][i] =float("{:.4f}".format(dic["r"][i])) 
 with open("./outputs/output.json","w") as fi:
         json.dump(dic,fi)
 

@@ -11,3 +11,7 @@ problem = cp.Problem(objective, constraints)
 solution = problem.solve()
 
 print(x.value)
+beti = 1
+anna = "%2.f" % (beti)
+g = float("{:.4f}".format(beti))
+print(g)
