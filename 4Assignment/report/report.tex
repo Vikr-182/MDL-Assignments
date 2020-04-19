@@ -528,17 +528,17 @@ minimum height=2em]
 \node [root] (mild) {f(1)=='Mild'?};
 \node [root,below of=mild,xshift=2cm] (hot) {f(1)=='Hot'?};
 \node [root,below of=hot,xshift=2cm] (wind) {f(3)=='Weak'?};
-\node [cloud, below of=mild,node distance=4cm] (f1) {False};
-\node [cloud, below of=hot,node distance=4.5cm] (t1) {True};
-\node [cloud, right of=t1,node distance=4cm] (f2) {False};
+\node [cloud, below of=mild,node distance=4cm] (f1) {No};
+\node [cloud, below of=hot,node distance=4.5cm] (t1) {Yes};
+\node [cloud, right of=t1,node distance=4cm] (f2) {No};
 
 \node [root,left of=hot,node distance=7cm] (rain) {f(0)=='Rain'?};
-\node [cloud, left of=f1,node distance=7cm] (t2) {True};
+\node [cloud, left of=f1,node distance=7cm] (t2) {Yes};
 \node [root, left of=f1,node distance=3.5cm] (overcast) {f(0)=='Overcast'?};
 \node [root, left of=t1,node distance=4cm] (humidity) {f(2)=='Normal'?};
-\node [cloud, left of=humidity,node distance=4cm] (t3) {True};
-\node [cloud, below of=humidity,node distance=2.5cm,xshift=2cm] (f3) {False};
-\node [cloud, left of=f3] (t4) {True};
+\node [cloud, left of=humidity,node distance=4cm] (t3) {Yes};
+\node [cloud, below of=humidity,node distance=2.5cm,xshift=2cm] (f3) {No};
+\node [cloud, left of=f3] (t4) {Yes};
 
 % 	\node [block, below of=cool,node distance=5cm] () {Weak};
 % 	\node [block, right of=weak,node distance=3cm] (strong) {Strong};
