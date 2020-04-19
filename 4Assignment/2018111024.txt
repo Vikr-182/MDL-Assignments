@@ -1,0 +1,8 @@
+5
+f(1)=='Mild' and f(0)=='Rain',True
+f(1)=='Mild' and f(0)!='Rain' and f(0)=='Overcast',True
+f(1)=='Mild' and f(0)!='Rain' and f(0)!='Overcast' and f(2)=='Normal',True
+f(1)=='Mild' and f(0)!='Rain' and f(0)!='Overcast' and f(2)!='Normal',False
+f(1)!='Mild' and f(1)=='Hot',False
+f(1)!='Mild' and f(1)!='Hot' and f(3)=='Weak',True
+f(1)!='Mild' and f(1)!='Hot' and f(3)!='Weak',True

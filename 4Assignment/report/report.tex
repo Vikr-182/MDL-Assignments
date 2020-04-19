@@ -1,0 +1,571 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts}%For Maths fonts.
+\usepackage{amssymb}%For math symbols.
+\usepackage{amsmath}%For the math.
+\usepackage{graphicx}%For the image.
+\graphicspath{ ./} 
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref} 
+\usepackage{listings}
+\usepackage{color}
+\usepackage{csvsimple}
+\usepackage{dirtree}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{multirow}
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\useunder{\uline}{\ul}{}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+\usetikzlibrary{shapes.geometric, arrows}%For the borders and shapes.
+\begin{document}
+	\begin{titlepage}
+		\begin{flushleft}
+			
+			\bf CS7.301
+			\hfill
+			\bfseries 18$^{th}$ April, 2020
+		\end{flushleft}
+		\begin{center}
+			\line(1,0){300}\\
+			[5mm]
+			\huge{\bfseries MDL Assignment-4}\\
+			\line(1,0){300}\\
+			[12cm]
+		\end{center}
+		\begin{flushright}
+			{
+				\line(1,0){270}\\
+				\large  Vikrant Dewangan, Roll No.- 2018111024
+				\line(1,0){270}\\	
+			}
+		\end{flushright}
+	\end{titlepage}
+	\newpage
+	\tableofcontents
+	\newpage
+	\section{Problem Statement}
+	Design a decision tree for the following Dataset, showing construction at each level. 
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Forecast} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Wind} & \textbf{Go on a trip}  \\ \hline
+			Sunny             & Hot                  & High              & Weak          & No                    \\ \hline
+			Sunny             & Hot                  & High              & Strong        & No                    \\ \hline
+			Overcast          & Hot                  & High              & Weak          & \textbf{No}                   \\ \hline
+			Rain              & Mild                 & High              & Weak          & Yes                   \\ \hline
+			Rain              & Cool                 & Normal            & Weak          & Yes                   \\ \hline
+			Rain              & Cool                 & Normal            & Strong        & No                    \\ \hline
+			Overcast          & Cool                 & Normal            & Strong        & \textbf{No}                   \\ \hline
+			Sunny             & Mild                 & High              & Weak          & No                    \\ \hline
+			Sunny             & Cool                 & Normal            & Weak          & Yes                   \\ \hline
+			Rain              & Mild                 & Normal            & Weak          & Yes                   \\ \hline
+			Sunny             & Mild                 & Normal            & Strong        & Yes                   \\ \hline
+			Overcast          & Mild                 & High              & Strong        & Yes                   \\ \hline
+		\end{tabular}
+	\end{table}
+	\section{The Algorithm}
+	\section{Calculating Information Gain}
+	At first, we shall calculate the entropy for the decision \textbf{Go on a trip}. To do this, we calculate $H \big(\small \textbf{Go on a trip}\big)$ -
+	\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{{\textbf{Go on a trip}}} \\ \hline
+		\textbf{Yes}             & \textbf{No}            \\ \hline
+		6                        & 6                      \\ \hline
+	\end{tabular}
+	\end{table}
+	\begin{align*}
+	H\big(\textbf{Go on a trip}\big) &= - \frac{p}{p + n} \cdot log\bigg(\frac{p}{p + n} \bigg) - \frac{n}{p + n} \cdot log\bigg(\frac{n}{p + n} \bigg) \\
+	&= - 2 \cdot \frac{6}{12} \cdot log\bigg(\frac{6}{12}\bigg) \\
+	&= 1
+	\end{align*}
+	Now, we shall calculate the entropies for each of the 4 attributes \textbf{Forecast}, \textbf{Temperature}, \textbf{Humidity} and \textbf{Wind}. 
+	\begin{enumerate}
+		\item $H \big(\small \textbf{Go on a trip},\textbf{Temperature}\big)$  
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{l|}{\textbf{Go on a trip}} & \multirow{2}{*}{\textbf{Total}} \\ \cline{3-4}
+		\multicolumn{2}{|l|}{}                  & \textbf{Yes}         & \textbf{No}         &                                 \\ \hline
+		\multirow{3}{*}{Temperature}   & Hot    & 0                    & 3                   & 3                               \\ \cline{2-5} 
+		& Mild   & 4                    & 1                   & 5                               \\ \cline{2-5} 
+		& Cool   & 2                    & 2                   & 4                               \\ \hline
+	\end{tabular}
+\end{table}
+\begin{align*}
+	H \big(\small Hot\big) &= 0 \\ 
+	H \big(\small Mild\big) &= - \frac{4}{5} \cdot log \bigg(\frac{4}{5} \bigg) - \frac{1}{5} \cdot log \bigg(\frac{1}{5} \bigg) \\
+							&=  log \big(5 \big) + \frac{4}{5} \cdot log \big(4\big) \\
+							&= 0.72 \\
+	H \big(\small Cold\big) &= - \frac{2}{4} \cdot log \bigg(\frac{2}{4} \bigg) - \frac{2}{4} \cdot log \bigg(\frac{2}{4} \bigg) \\
+							&= 1
+\end{align*}
+		\begin{align*}
+			H \big(\small \textbf{Go on a trip},\textbf{Temperature}\big) &=  P \big( Hot \big) H \big(\small Hot\big) + \\
+			& \hspace{0.5cm} P \big(Cold \big) H \big(\small Cold \big)  + P \big(Mild \big) H \big(\small Mild\big) \\
+			&= \frac{3}{12} \cdot H \big(0, 3\big) + \frac{5}{12} \cdot H \big(4, 1\big) + \frac{4}{12} \cdot H \big(2, 2\big) \\
+			&= 0 + \frac{5}{12} \cdot 0.72 + \frac{4}{12} \cdot 1 \\
+			&= 0.63
+		\end{align*}
+		\item $H \big(\small \textbf{Go on a trip},\textbf{Forecast}\big)$  
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{l|}{\textbf{Go on a trip}} & \multirow{2}{*}{\textbf{Total}} \\ \cline{3-4}
+		\multicolumn{2}{|l|}{}                  & \textbf{Yes}         & \textbf{No}         &                                 \\ \hline
+		\multirow{3}{*}{Forecast}   & Sunny    & 2                    & 3                   & 5                               \\ \cline{2-5} 
+		& Rain   & 3                    & 1                   & 4                               \\ \cline{2-5} 
+		& Overcast   & 1                    & 2                   & 3                               \\ \hline
+	\end{tabular}
+\end{table}		
+\begin{align*}
+H \big(\small Sunny\big) &= - \frac{2}{5} \cdot log \bigg(\frac{2}{5} \bigg) - \frac{3}{5} \cdot log \bigg(\frac{3}{5} \bigg) \\
+&= 0.97 \\ 
+H \big(\small Rain\big) &= - \frac{3}{4} \cdot log \bigg(\frac{3}{4} \bigg) - \frac{1}{4} \cdot log \bigg(\frac{1}{4} \bigg) \\
+&= 0.81 \\
+H \big(\small Overcast\big) &= - \frac{1}{3} \cdot log \bigg(\frac{1}{3} \bigg) - \frac{2}{3} \cdot log \bigg(\frac{2}{3} \bigg) \\
+&= 0.92
+\end{align*}
+		\begin{align*}
+H \big(\small \textbf{Go on a trip},\textbf{Forecast}\big) &=  P \big( Sunny \big) H \big(\small Sunny \big) + P \big(Rain \big) H \big(\small Rain \big)  \\
+&\hspace{3cm} + P \big(Overcast \big) H \big(\small Overcast\big) \\
+&= \frac{5}{12} \cdot H \big(2, 3\big) + \frac{4}{12} \cdot H \big(3, 1\big) + \frac{3}{12} \cdot H \big(1, 2\big) \\
+&= \frac{5}{12} \cdot 0.97 + \frac{4}{12} \cdot 0.81 + \frac{3}{12} \cdot 0.92 \\
+&= 0.90
+\end{align*}
+		\item $H \big(\small \textbf{Go on a trip},\textbf{Humidity}\big)$  
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multicolumn{2}{|l|}{\multirow{2}{*}{\textbf{}}} & \multicolumn{2}{l|}{\textbf{Go on a trip}} & \multirow{2}{*}{\textbf{Total}} \\ \cline{3-4}
+		\multicolumn{2}{|l|}{}                           & \textbf{Yes}         & \textbf{No}         &                                 \\ \hline
+		\multirow{2}{*}{Humidity}        & High          & 2                    & 4                   & 6                               \\ \cline{2-5} 
+		& Normal        & 4                    & 2                   & 6                               \\ \hline
+	\end{tabular}
+\end{table}	
+\begin{align*}
+H \big(\small High\big) &= - \frac{2}{6} \cdot log \bigg(\frac{2}{6} \bigg) - \frac{4}{6} \cdot log \bigg(\frac{4}{6} \bigg) \\
+&= 0.92 \\ 
+H \big(\small Rain\big) &= - \frac{4}{6} \cdot log \bigg(\frac{4}{6} \bigg) - \frac{2}{6} \cdot log \bigg(\frac{2}{6} \bigg) \\
+&= 0.92 
+\end{align*}
+\begin{align*}
+H \big(\small \textbf{Go on a trip},\textbf{Humidity}\big) &=  P \big( High \big) H \big(\small High \big) + P \big(Normal \big) H \big(\small Normal \big)  \\
+&= \frac{6}{12} \cdot H \big(2, 4\big) + \frac{6}{12} \cdot H \big(4, 2\big)\\
+&= 0.92
+\end{align*}
+		\item $H \big(\small \textbf{Go on a trip},\textbf{Wind}\big)$  
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\multicolumn{2}{|l|}{\multirow{2}{*}{\textbf{}}} & \multicolumn{2}{l|}{\textbf{Go on a trip}} & \multirow{2}{*}{\textbf{Total}} \\ \cline{3-4}
+		\multicolumn{2}{|l|}{}                           & \textbf{Yes}         & \textbf{No}         &                                 \\ \hline
+		\multirow{2}{*}{Wind}        & Weak          & 3                    & 4                   & 7                               \\ \cline{2-5} 
+		& Strong        & 3                    & 2                   & 5                               \\ \hline
+	\end{tabular}
+\end{table}	
+\begin{align*}
+H \big(\small Weak\big) &= - \frac{3}{7} \cdot log \bigg(\frac{3}{7} \bigg) - \frac{4}{7} \cdot log \bigg(\frac{4}{7} \bigg) \\
+&= 0.99 \\ 
+H \big(\small Strong\big) &= - \frac{3}{5} \cdot log \bigg(\frac{3}{5} \bigg) - \frac{2}{5} \cdot log \bigg(\frac{2}{5} \bigg) \\
+&= 0.97 
+\end{align*}
+\begin{align*}
+H \big(\small \textbf{Go on a trip},\textbf{Wind}\big) &=  P \big( Strong \big) H \big(\small Strong \big) + P \big(Weak \big) H \big(\small Weak \big)  \\
+&= \frac{5}{12} \cdot H \big(3, 2\big) + \frac{7}{12} \cdot H \big(3, 4\big)\\
+&= 0.98
+\end{align*}
+	\end{enumerate}
+Now we shall calculate information gain for each split -  
+\begin{align*}
+Gain \big(\textbf{Go on a trip},\textbf{Temperature}\big) &= H\big(\textbf{Go on a trip}\big) - H \big(\small \textbf{Go on a trip},\textbf{Temperature}\big) \\
+&= 1 - 0.63 \\
+&= 0.37 \\
+Gain \big(\textbf{Go on a trip},\textbf{Forecast}\big) &= H\big(\textbf{Go on a trip}\big) - H \big(\small \textbf{Go on a trip},\textbf{Forecast}\big) \\
+&= 1 - 0.90 \\
+&= 0.10 \\
+Gain \big(\textbf{Go on a trip},\textbf{Humidity}\big) &= H\big(\textbf{Go on a trip}\big) - H \big(\small \textbf{Go on a trip},\textbf{Humidity}\big) \\
+&= 1 - 0.92 \\
+&= 0.08 \\
+Gain \big(\textbf{Go on a trip},\textbf{Wind}\big) &= H\big(\textbf{Go on a trip}\big) - H \big(\small \textbf{Go on a trip},\textbf{Wind}\big) \\
+&= 1 - 0.98 \\
+&= 0.02
+\end{align*}
+\section{Building further tree}
+Since we have the highest information gain at the Temperature split, our first \textbf{decision} shall be regarding checking the temperature.
+\begin{center}
+	\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Forecast} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Wind} & \textbf{Go on a trip}  \\ \hline
+		\text{Sunny}             & Hot                  & High              & Weak          & No                    \\ \hline
+		Sunny             & Hot                  & High              & Strong        & No                    \\ \hline
+		Overcast          & Hot                  & High              & Weak          & \textbf{No}                   \\ \hline 
+		        &                   &              &          &                    \\ \hline 
+		Rain              & Cool                 & Normal            & Weak          & Yes                   \\ \hline
+		Rain              & Cool                 & Normal            & Strong        & No                    \\ \hline
+		Overcast          & Cool                 & Normal            & Strong        & \textbf{No}                   \\ \hline
+		Sunny             & Cool                 & Normal            & Weak          & Yes                   \\ \hline
+		        &                   &              &          &                    \\ \hline 		
+		Sunny             & Mild                 & High              & Weak          & No                    \\ \hline
+		Rain              & Mild                 & High              & Weak          & Yes                   \\ \hline
+		Rain              & Mild                 & Normal            & Weak          & Yes                   \\ \hline
+		Sunny             & Mild                 & Normal            & Strong        & Yes                   \\ \hline
+		Overcast          & Mild                 & High              & Strong        & Yes                   \\ \hline
+	\end{tabular}
+\end{table}
+\end{center}
+\begin{enumerate}
+	\item 
+Now as we can clearly see, \underline{Hot} temperature always results in \textbf{No} decision. In other words,
+\begin{align*}
+	H\big(\textbf{Temp}=Hot\big) &= 1
+\end{align*}
+ Thus one of our path to \textit{leaf nodes} is decided.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{root} = [rectangle, draw, fill=green!20, 
+text width=5em, text centered, rounded corners, minimum height=2em,minimum width=3cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20,text width=4em,text centered, node distance=3cm,
+minimum height=2em]
+\tikzstyle{cloud2} = [draw, ellipse,fill=green!20, node distance=3cm,
+minimum height=2em]
+    \begin{center}
+\begin{tikzpicture}[node distance = 2cm, auto]
+% Place nodes
+\node [root] (init) {Temperature};
+%\node [cloud, right of=init] (system) {system};
+%\node [cloud, right of=init] (system) {system};
+\node [block, below of=init] (identify) {High};
+\node [cloud, below of=identify] (expert) {Don't go on a trip};
+\node [block, left of=identify,node distance=3cm] (mild) {Mild};
+\node [block, right of=identify,node distance=3cm] (cool) {Cool};
+%\node [block, below of=identify] (evaluate) {evaluate candidate models};
+%\node [block, left of=evaluate, node distance=3cm] (update) {update model};
+%\node [decision, below of=evaluate] (decide) {is best candidate better?};
+%\node [block, below of=decide, node distance=3cm] (stop) {stop};
+% Draw edges
+\path [line] (init) -- (identify);
+%\path [line] (identify) -- (evaluate);
+%\path [line] (evaluate) -- (decide);
+%\path [line] (decide) -| node [near start] {yes} (update);
+\path [line] (init) -- (mild);
+\path [line] (init) -- (cool);
+%\path [line] (decide) -- node {no}(stop);
+\path [line] (identify) -- (expert);
+%\path [line,dashed] (system) -- (init);
+%\path [line,dashed] (system) |- (evaluate);
+\end{tikzpicture}
+    \end{center}
+\item Now, for when the temperature is \underline{Cool}, the following table results - 
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|l|}
+		\hline
+		\multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{}}} & \multicolumn{2}{c|}{{\ul \textbf{Go on a trip}}} & \multirow{2}{*}{{\ul \textbf{Total}}} & \multirow{2}{*}{{\ul \textbf{Entropy}}} \\ \cline{3-4}
+		\multicolumn{2}{|c|}{}                           & \textbf{Yes}            & \textbf{No}            &                                       &                                         \\ \hline
+		\multirow{2}{*}{Wind}           & Weak           & 2                       & 0                      & 2                                     & 0                                       \\ \cline{2-6} 
+		& Strong         & 0                       & 2                      & 2                                     & 0                                       \\ \hline
+		\multirow{3}{*}{Forecast}       & Rain           & 1                       & 1                      & 2                                     & 1                                       \\ \cline{2-6} 
+		& Overcast       & 0                       & 1                      & 1                                     & 0                                       \\ \cline{2-6} 
+		& Sunny          & 1                       & 0                      & 1                                     & 0                                       \\ \hline
+		Humidity                        & Normal         & 2                       & 2                      & 4                                     & 1                                      \\ \hline
+	\end{tabular}
+\end{table}
+\begin{align*}
+	H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool\big) &= H \big(2,2\big) \\
+										&= 1
+\end{align*}
+
+Now for $H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool\big)$, the best split would be that which can the highest information gain. Clearly as we can see,
+\begin{align*}
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool,\textbf{\small Wind}\big) &= \frac{2}{4} \cdot 0 +  \frac{2}{4} \cdot 0 \\
+&= 0\\
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool,\textbf{\small Forecast}\big) &= \frac{2}{4} \cdot 1 +  \frac{1}{4} \cdot 0 +   \frac{1}{4} \cdot 0\\
+&= 0.5\\
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool,\textbf{\small Humidity}\big) &= \frac{1}{1} \cdot 1\\
+&= 1
+\end{align*}
+Thus  $Gain \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Cool,\textbf{\small Wind}\big)$ is the highest. Here, we can distinctly make out that \textbf{Wind}=Weak results in Yes and \textbf{Wind}=Strong results in No.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{root} = [rectangle, draw, fill=green!20, 
+text width=5em, text centered, rounded corners, minimum height=2em,minimum width=3cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20,text width=4em,text centered, node distance=3cm,
+minimum height=2em]
+\tikzstyle{cloud2} = [draw, ellipse,fill=green!20, node distance=3cm,
+minimum height=2em]
+
+	\begin{tikzpicture}[node distance = 2cm, auto]
+	% Place nodes
+	\node [root] (init) {Temperature};
+	%\node [cloud, right of=init] (system) {system};
+	%\node [cloud, right of=init] (system) {system};
+	\node [block, below of=init] (identify) {High};
+	\node [cloud, below of=identify] (expert) {Don't go on a trip};
+	\node [block, left of=identify,node distance=2.5cm] (mild) {Mild};
+	\node [block, right of=identify,node distance=2.5cm] (cool) {Cool};
+	
+	%\node [block, below of=identify] (evaluate) {evaluate candidate models};
+	\node [root, right of=expert,node distance=4cm] (wind) {Wind};
+	\node [block, below of=cool,node distance=5cm] (weak) {Weak};
+	\node [block, right of=weak,node distance=3cm] (strong) {Strong};
+	\node [cloud, below of=weak] (dont) {Don't go on a trip};	
+	\node [cloud, below of=strong] (do) {Go on a trip};	
+	%\node [block, left of=evaluate, node distance=3cm] (update) {update model};
+	%\node [decision, below of=evaluate] (decide) {is best candidate better?};
+	%\node [block, below of=decide, node distance=3cm] (stop) {stop};
+	% Draw edges
+	\path [line] (init) -- (identify);
+	%\path [line] (identify) -- (evaluate);
+	%\path [line] (evaluate) -- (decide);
+	%\path [line] (decide) -| node [near start] {yes} (update);
+	\path [line] (init) -- (mild);
+	\path [line] (init) -- (cool);
+	%\path [line] (decide) -- node {no}(stop);
+	\path [line] (identify) -- (expert);
+	%\path [line,dashed] (system) -- (init);
+	\path [line] (cool) -- (wind);
+	\path [line] (wind) -- (weak);
+	\path [line] (wind) -- (strong);
+	\path [line] (weak) -- (dont);
+	\path [line] (strong) -- (do);
+	%\path [line,dashed] (system) |- (evaluate);
+	\end{tikzpicture}
+\item Now, for when the temperature is \underline{Mild}, the following table results
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{}}} & \multicolumn{2}{c|}{{\ul \textbf{Go on a trip}}} & \multirow{2}{*}{{\ul \textbf{Total}}} & \multirow{2}{*}{{\ul \textbf{Entropy}}} \\ \cline{3-4}
+\multicolumn{2}{|c|}{}                           & \textbf{Yes}            & \textbf{No}            &                                       &                                         \\ \hline
+\multirow{2}{*}{Wind}           & Weak           & 2                       & 1                      & 3                                     & 0.92                                    \\ \cline{2-6} 
+                                & Strong         & 2                       & 0                      & 2                                     & 0                                       \\ \hline
+\multirow{3}{*}{Forecast}       & Rain           & 2                       & 0                      & 2                                     & 0                                       \\ \cline{2-6} 
+                                & Overcast       & 1                       & 0                      & 1                                     & 0                                       \\ \cline{2-6} 
+                                & Sunny          & 1                       & 1                      & 2                                     & 1                                       \\ \hline
+\multirow{2}{*}{Humidity}       & Normal         & 2                       & 0                      & 2                                     & 0                                       \\ \cline{2-6} 
+                                & High           & 2                       & 1                      & 3                                     & 0.92                                    \\ \hline
+\end{tabular}
+\end{table}
+\begin{align*}
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Mild,\textbf{\small Wind}\big) &= \frac{3}{5} \cdot 0.92 +  \frac{2}{5} \cdot 0 \\
+&= 0.55\\
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Mild,\textbf{\small Forecast}\big) &= \frac{2}{5} \cdot 0 +  \frac{1}{5} \cdot 0 +   \frac{2}{5} \cdot 1\\
+&= 0.4\\
+H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Mild,\textbf{\small Humidity}\big) &= \frac{2}{5} \cdot 0 +  \frac{3}{5} \cdot 0.92\\
+&= 0.55
+\end{align*}
+Clearly, as $H \big(\textbf{\small Go on a trip},\textbf{\small Temperature}=Mild,\textbf{\small Forecast}\big)$ is smallest, we shall look into this split.
+\begin{center}
+	\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Forecast} & \textbf{Temperature} & \textbf{Humidity} & \textbf{Wind} & \textbf{Go on a trip}  \\ \hline
+		Sunny             & Mild                 & High              & Weak          & No                    \\ \hline
+		Sunny             & Mild                 & Normal            & Strong        & Yes                   \\ \hline		
+		Rain              & Mild                 & High              & Weak          & Yes                   \\ \hline
+		Rain              & Mild                 & Normal            & Weak          & Yes                   \\ \hline
+
+		Overcast          & Mild                 & High              & Strong        & Yes                   \\ \hline
+	\end{tabular}
+\end{table}
+\end{center}
+Clearly, when the \textbf{Forecast} is not Sunny the output is clearly \textbf{Yes}. When the \textbf{Forecast} is Sunny, we look at the \textbf{Humidity} or \textbf{Wind} parameters. Since both of them convey the same thing, we go for \textbf{Humidity} this time.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{root} = [rectangle, draw, fill=green!20, 
+text width=5em, text centered, rounded corners, minimum height=2em,minimum width=3cm]
+\tikzstyle{root2} = [rectangle, draw, fill=green!20, 
+text width=5em, text centered, rounded corners, minimum height=2em,minimum width=2cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20,text width=4em,text centered, node distance=3cm,
+minimum height=2em]
+\tikzstyle{cloud2} = [draw, ellipse,fill=green!20, node distance=3cm,
+minimum height=2em]
+
+	\begin{tikzpicture}[node distance = 2cm, auto]
+	% Place nodes
+	\node [root] (init) {Temperature};
+	%\node [cloud, right of=init] (system) {system};
+	%\node [cloud, right of=init] (system) {system};
+	\node [block, below of=init] (identify) {Hot};
+	\node [cloud, below of=identify] (expert) {Don't go on a trip};
+	\node [block, left of=identify,node distance=2.5cm] (mild) {Mild};
+	\node [block, right of=identify,node distance=2.5cm] (cool) {Cool};
+	
+	%\node [block, below of=identify] (evaluate) {evaluate candidate models};
+	\node [root, right of=expert,node distance=4cm] (wind) {Wind};
+	\node [block, below of=cool,node distance=5cm] (weak) {Weak};
+	\node [block, right of=weak,node distance=3cm] (strong) {Strong};
+	\node [block, left of=weak,node distance=4cm] (overcast) {Overcast};
+% 	\node [block, left of=weak,node distance=3cm] (overcast) {Overcast};
+	\node [cloud, below of=weak] (dont) {Go on a trip};	
+	\node [cloud, below of=strong] (do) {Don't go on a trip};	
+	
+	\node [root, left of=expert,node distance=4cm] (forecast) {Forecast};
+	\node [block, left of=overcast,node distance=2.5cm] (sunny) {Sunny};
+ 	\node [block, left of=sunny,node distance=2.5cm] (rain) {Rain};
+ 	\node [cloud, below of=rain] (dd) {Go on a trip};
+ 	\node [cloud, below of=overcast] (gg) {Go on a trip};
+	\node [root2, below of=sunny,node distance=4cm] (humidity) {Humidity};
+ 	\node [block, below of=gg,node distance=2.5cm] (hhigh) {High};
+ 	\node [block, below of=dd,node distance=2.5cm] (normal) {Normal};
+	\node [cloud, below of=normal] (oo) {Go on a trip};	
+ 	\node [cloud, below of=hhigh] (pp) {Don't go on a trip};	
+ 		% 	\node [block, below of=cool,node distance=5cm] () {Weak};
+% 	\node [block, right of=weak,node distance=3cm] (strong) {Strong};
+% 	\node [cloud, below of=weak] (dont) {Don't go on a trip};	
+% 	\node [cloud, below of=strong] (do) {Go on a trip};		
+	%\node [block, left of=evaluate, node distance=3cm] (update) {update model};
+	%\node [decision, below of=evaluate] (decide) {is best candidate better?};
+	%\node [block, below of=decide, node distance=3cm] (stop) {stop};
+	% Draw edges
+	\path [line] (init) -- (identify);
+	%\path [line] (identify) -- (evaluate);
+	%\path [line] (evaluate) -- (decide);
+	%\path [line] (decide) -| node [near start] {yes} (update);
+	\path [line] (init) -- (mild);
+	\path [line] (init) -- (cool);
+	%\path [line] (decide) -- node {no}(stop);
+	\path [line] (identify) -- (expert);
+	%\path [line,dashed] (system) -- (init);
+	\path [line] (cool) -- (wind);
+	\path [line] (wind) -- (weak);
+	\path [line] (wind) -- (strong);
+	\path [line] (weak) -- (dont);
+	\path [line] (strong) -- (do);
+	\path [line] (mild) -- (forecast);
+	\path [line] (forecast) -- (sunny);
+	\path [line] (forecast) -- (rain);
+	\path [line] (forecast) -- (overcast);
+	\path [line] (rain) -- (dd);
+	\path [line] (overcast) -- (gg);
+	\path [line] (sunny) -- (humidity);
+	\path [line] (humidity) -- (normal);
+	\path [line] (humidity) -- (hhigh);	
+	\path [line] (normal) -- (oo);	
+	\path [line] (hhigh) -- (pp);		
+	%\path [line,dashed] (system) |- (evaluate);
+	\end{tikzpicture}
+\end{enumerate}
+We shall use the following notation - 
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		{\ul \textbf{Function}} & {\ul \textbf{Attribute}} \\ \hline
+		f(0)                    & Forecast                 \\ \hline
+		f(1)                    & Temperature              \\ \hline
+		f(2)                    & Humidity                 \\ \hline
+		f(3)                    & Wind                     \\ \hline
+	\end{tabular}
+\end{table}
+Accordingly, the flowchart can be summarized as - 
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=white20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=white!20, 
+text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{root} = [rectangle, draw, fill=white!20, 
+text width=7em, text badly centered, rounded corners, minimum height=2em,minimum width=3.8cm]
+\tikzstyle{root2} = [rectangle, draw, fill=white!20, 
+text width=5em, text centered, rounded corners, minimum height=2em,minimum width=2cm]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=white!20,text width=4em,text centered, node distance=3cm,
+minimum height=2em]
+\tikzstyle{cloud2} = [draw, ellipse,fill=white!20, node distance=3cm,
+minimum height=2em]
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+% Place nodes
+\node [root] (mild) {f(1)=='Mild'?};
+\node [root,below of=mild,xshift=2cm] (hot) {f(1)=='Hot'?};
+\node [root,below of=hot,xshift=2cm] (wind) {f(3)=='Weak'?};
+\node [cloud, below of=mild,node distance=4cm] (f1) {False};
+\node [cloud, below of=hot,node distance=4.5cm] (t1) {True};
+\node [cloud, right of=t1,node distance=4cm] (f2) {False};
+
+\node [root,left of=hot,node distance=7cm] (rain) {f(0)=='Rain'?};
+\node [cloud, left of=f1,node distance=7cm] (t2) {True};
+\node [root, left of=f1,node distance=3.5cm] (overcast) {f(0)=='Overcast'?};
+\node [root, left of=t1,node distance=4cm] (humidity) {f(2)=='Normal'?};
+\node [cloud, left of=humidity,node distance=4cm] (t3) {True};
+\node [cloud, below of=humidity,node distance=2.5cm,xshift=2cm] (f3) {False};
+\node [cloud, left of=f3] (t4) {True};
+
+% 	\node [block, below of=cool,node distance=5cm] () {Weak};
+% 	\node [block, right of=weak,node distance=3cm] (strong) {Strong};
+% 	\node [cloud, below of=weak] (dont) {Don't go on a trip};	
+% 	\node [cloud, below of=strong] (do) {Go on a trip};		
+%\node [block, left of=evaluate, node distance=3cm] (update) {update model};
+%\node [decision, below of=evaluate] (decide) {is best candidate better?};
+%\node [block, below of=decide, node distance=3cm] (stop) {stop};
+% Draw edges
+%\path [line] (identify) -- (evaluate);
+\path [line] (mild) -- (hot) node [midway] {No} ;
+\path [line] (hot) -- (wind) node [midway] {No} ;
+\path [line] (hot) -- (f1) node [near start] {Yes} ;
+\path [line] (wind) -- (t1) node [near start] {Yes} ;
+\path [line] (wind) -- (f2) node [midway] {No} ;
+\path [line] (mild) -- (rain) node [near start] {Yes} ;
+\path [line] (rain) -- (t2) node [near start] {Yes} ;
+\path [line] (rain) -- (overcast) node [midway] {No} ;
+\path [line] (overcast) -- (t3) node [near start] {Yes} ;
+\path [line] (overcast) -- (humidity) node [midway] {No} ;
+\path [line] (humidity) -- (f3) node [midway] {No} ;
+\path [line] (humidity) -- (t4) node [near start] {Yes} ;
+%\path [line] (evaluate) -- (decide);
+%\path [line] (decide) -| node [near start] {yes} (update);
+%\path [line] (decide) -- node {no}(stop);
+%\path [line,dashed] (system) -- (init);
+%\path [line,dashed] (system) |- (evaluate);
+\end{tikzpicture}
+\end{document}
+

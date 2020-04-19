@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Problem Statement}{2}{section.1}% 
+\contentsline {section}{\numberline {2}The Algorithm}{2}{section.2}% 
+\contentsline {section}{\numberline {3}Calculating Information Gain}{2}{section.3}% 
+\contentsline {section}{\numberline {4}Building further tree}{6}{section.4}% 
