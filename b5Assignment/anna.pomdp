@@ -1,0 +1,5 @@
+discount: 0.5
+values: reward
+states: 162
+actions: stay right down left up
+observations: stay right down left up around

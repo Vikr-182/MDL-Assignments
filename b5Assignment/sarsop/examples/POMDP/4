@@ -1,0 +1,9 @@
+discount: 0.5
+values: reward cost
+states: 162
+actions: stay up left right down
+observations: o0 o1 o2 o3 o4 o5 o6
+
+start include: 10 11 46 47 82 83 118 119 154 155
+
+T:
